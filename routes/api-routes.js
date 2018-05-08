@@ -15,7 +15,11 @@ module.exports = function(app) {
       category: req.body.category
     });
   });
-
+  app.get("/api/blog/:category", function(req,res){
+    models.Post.findAll({where: { category: req.params["category"]}}, function(result){
+      res.json(result);
+    });
+  });
   app.delete('/api/posts/:id', function(req, res) {
     models.Post.destroy({
       where: {
