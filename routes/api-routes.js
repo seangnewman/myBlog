@@ -13,6 +13,8 @@ module.exports = function(app) {
       title: req.body.title,
       body: req.body.body,
       category: req.body.category
+    }).then(function(post){
+      res.json(post);
     });
   });
   app.get("/api/blog/:category", function(req,res){
@@ -23,8 +25,10 @@ module.exports = function(app) {
   app.delete('/api/posts/:id', function(req, res) {
     models.Post.destroy({
       where: {
-        id: req.body.id
+        id: req.params.id
       }
+    }).then(function(result){
+      res.json(result);
     });
   });
 
@@ -35,8 +39,10 @@ module.exports = function(app) {
       category: req.body.category
     },{
       where: {
-        id: req.body.id
+        id: req.params.id
       }
+    }).then(function(post){
+      res.json(post);
     });
   });
 };
