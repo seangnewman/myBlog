@@ -30,6 +30,10 @@ module.exports = function(app) {
 
   app.put('/api/posts/:id', function(req, res) {
     models.Post.update({
+      body: req.body.body,
+      title: req.body.title,
+      category: req.body.category
+    },{
       where: {
         id: req.body.id
       }
