@@ -1,28 +1,34 @@
-// *********************************************************************************
-// api-routes.js - this file offers a set of routes for displaying and saving data to the db
-// *********************************************************************************
-
-// Dependencies
-// =============================================================
-
-// Grabbing our models
-
 var models = require('../models');
 
 module.exports = function(app) {
-  // GET route for getting all of the todos
   app.get('/api/blog', function(req, res) {
-    //
+    models.Post.findAll().then(function(results) {
+      console.log(results);
+      res.json(results);
+    });
   });
 
-  // POST route for saving a new todo. You can create a todo using the data on req.body
   app.post('/api/posts', function(req, res) {
-    //
+    models.Post.create({
+      title: req.body.title,
+      body: req.body.body,
+      category: req.body.category
+    });
   });
 
-  // DELETE route for deleting todos. You can access the todo's id in req.params.id
-  app.delete('/api/posts/:id', function(req, res) {});
+  app.delete('/api/posts/:id', function(req, res) {
+    models.Post.destroy({
+      where: {
+        id: req.body.id
+      }
+    });
+  });
 
-  // PUT route for updating todos. The updated todo will be available in req.body
-  app.put('/api/posts/:id', function(req, res) {});
+  app.put('/api/posts/:id', function(req, res) {
+    models.Post.update({
+      where: {
+        id: req.body.id
+      }
+    });
+  });
 };
